@@ -3,110 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MO.HSE.01_03 | Livret d'Accueil HSE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <title>MO.HSE.01_03 | Livret d'Accueil Sécurité</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            overflow-x: hidden;
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Roboto',sans-serif;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            background:#000;
+            color:white;
+            position:relative;
         }
-        .container {
-            text-align: center;
-            padding: 20px;
-            animation: fadeIn 1.2s ease-out;
+        canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
+        .overlay{
+            position:absolute;
+            top:0;left:0;right:0;bottom:0;
+            background:linear-gradient(135deg,rgba(0,20,50,0.96) 0%,rgba(0,30,70,0.94) 100%);
+            z-index:2;
         }
-        .logo {
-            width: 160px;
-            height: 160px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            margin-bottom: 30px;
-            animation: float 6s ease-in-out infinite;
-        }
-        h1 {
-            font-size: 2.4rem;
-            margin-bottom: 15px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 50px;
-            opacity: 0.9;
-        }
-        .buttons {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        button {
-            padding: 18px 50px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            min-width: 200px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .fr { background: linear-gradient(45deg, #002395, #0055D4); }
-        .en { background: linear-gradient(45deg, #CE1126, #ED2939); }
+        .container{position:relative;z-index:10;text-align:center;padding:20px;}
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.7s;
+        .logo{
+            width:190px;height:190px;
+            border-radius:50%;
+            border:10px solid #FF8C00;
+            box-shadow:0 0 70px rgba(255,140,0,0.9);
+            animation:pulse 4s infinite;
         }
-        button:hover::before {
-            left: 100%;
+        h1{
+            font-family:'Orbitron',sans-serif;
+            font-size:clamp(2rem, 8vw, 4.5rem);
+            margin:20px 0 10px;
+            text-shadow:0 0 30px #FF8C00;
+            letter-spacing:5px;
         }
-        button:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        .ref{
+            background:rgba(255,140,0,0.3);
+            padding:10px 40px;
+            border-radius:50px;
+            border:3px solid #FF8C00;
+            font-weight:bold;
+            font-size:clamp(1rem, 3vw, 1.5rem);
+            display:inline-block;
+            margin-bottom:50px;
+        }
+        .buttons{
+            display:flex;
+            gap:clamp(20px, 5vw, 50px);
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+        button{
+            padding:clamp(16px, 4vw, 24px) clamp(40px, 10vw, 80px);
+            font-size:clamp(1.2rem, 4vw, 1.8rem);
+            font-weight:bold;
+            border:5px solid #FF8C00;
+            border-radius:20px;
+            cursor:pointer;
+            min-width:260px;
+            transition:transform .4s,box-shadow .4s;
+            box-shadow:0 15px 40px rgba(0,0,0,0.7);
+        }
+        .fr{background:linear-gradient(135deg,#002395,#0033A0);}
+        .en{background:linear-gradient(135deg,#CE1126,#E91D0E);}
+        button:hover{
+            transform:translateY(-15px) scale(1.1);
+            box-shadow:0 35px 80px rgba(255,140,0,0.9);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Icônes animées - optimisées CSS */
+        .safety-orbit{
+            position:absolute;
+            top:50%;left:50%;
+            width:80vmin;height:80vmin;
+            max-width:600px;max-height:600px;
+            transform:translate(-50%,-50%);
+            pointer-events:none;
+            z-index:3;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        .s-icon{
+            position:absolute;
+            font-size:clamp(2rem, 6vw, 3.5rem);
+            color:#FF8C00;
+            text-shadow:0 0 25px #FF8C00;
+            animation:orbit 22s linear infinite;
+        }
+        .s-icon:nth-child(1){top:0;left:50%;transform:translate(-50%,-50%);animation-delay:0s;}
+        .s-icon:nth-child(2){top:10%;right:10%;animation-delay:-1.8s;}
+        .s-icon:nth-child(3){top:30%;right:2%;animation-delay:-3.6s;}
+        .s-icon:nth-child(4){bottom:25%;right:8%;animation-delay:-5.4s;}
+        .s-icon:nth-child(5){bottom:5%;right:35%;animation-delay:-7.2s;}
+        .s-icon:nth-child(6){bottom:10%;left:10%;animation-delay:-9s;}
+        .s-icon:nth-child(7){bottom:30%;left:2%;animation-delay:-10.8s;}
+        .s-icon:nth-child(8){top:45%;left:5%;animation-delay:-12.6s;}
+        .s-icon:nth-child(9){top:15%;left:12%;animation-delay:-14.4s;}
+        .s-icon:nth-child(10){top:5%;left:40%;animation-delay:-16.2s;}
+        .s-icon:nth-child(11){top:25%;left:50%;transform:translate(-50%,-50%);animation-delay:-18s;}
+        .s-icon:nth-child(12){top:50%;left:0;transform:translateY(-50%);animation-delay:-19.8s;}
+
+        @keyframes orbit{
+            0%{transform:translate(-50%,-50%) rotate(0deg) translateX(42vmin) rotate(0deg);}
+            100%{transform:translate(-50%,-50%) rotate(360deg) translateX(42vmin) rotate(-360deg);}
+        }
+        @keyframes pulse{
+            0%,100%{box-shadow:0 0 70px rgba(255,140,0,0.9);}
+            50%{box-shadow:0 0 110px rgba(255,140,0,1);}
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            p { font-size: 1.1rem; }
-            .buttons { flex-direction: column; align-items: center; gap: 20px; }
-            button { width: 80%; max-width: 300px; }
-            .logo { width: 130px; height: 130px; }
+        @media (max-width:480px){
+            .logo{width:140px;height:140px;border-width:7px;}
+            button{min-width:90%;}
         }
     </style>
 </head>
 <body>
 
+    <!-- Particules oranges qui tombent (canvas optimisé) -->
+    <canvas id="particles"></canvas>
+    <div class="overlay"></div>
+
+    <!-- 12 icônes de sécurité en orbite -->
+    <div class="safety-orbit">
+        <i class="fas fa-hard-hat s-icon"></i>
+        <i class="fas fa-vest s-icon"></i>
+        <i class="fas fa-fire-extinguisher s-icon"></i>
+        <i class="fas fa-glasses s-icon"></i>
+        <i class="fas fa-hand-sparkles s-icon"></i>
+        <i class="fas fa-shoe-prints s-icon"></i>
+        <i class="fas fa-head-side-mask s-icon"></i>
+        <i class="fas fa-exclamation-triangle s-icon"></i>
+        <i class="fas fa-ban s-icon"></i>
+        <i class="fas fa-medkit s-icon"></i>
+        <i class="fas fa-lock s-icon"></i>
+        <i class="fas fa-bolt s-icon"></i>
+    </div>
+
     <div class="container">
         <img src="https://media.licdn.com/dms/image/v2/C510BAQFv4NwvhYRq8Q/company-logo_200_200/company-logo_200_200/0/1631351838133?e=2147483647&v=beta&t=pE5-TQRX2fd9oIfzQypoBLterLoj-X4wOnC3C8MMI4Q"
              alt="Logo" class="logo">
 
-        <h1>MO.HSE.01_03</h1>
-        <p>LIVRET D'ACCUEIL HSE / ONBOARDING HANDBOOK</p>
+        <h1>SAFETY FIRST</h1>
+        <div class="ref">MO.HSE.01_03</div>
 
         <div class="buttons">
             <button class="fr" onclick="window.open('MO.HSE.01_03_Livret_Accueil_HSE_FR.pdf','_blank')">
@@ -118,5 +160,49 @@
         </div>
     </div>
 
+    <!-- Particules oranges (très optimisées) -->
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor(){
+                this.x = Math.random() * canvas.width;
+                this.y = -10;
+                this.size = Math.random() * 4 + 2;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.opacity = 1;
+            }
+            update(){
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if(this.y > canvas.height) this.y = -10;
+            }
+            draw(){
+                ctx.fillStyle = `rgba(255,140,0,${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+
+        function init(){ for(let i=0;i<80;i++) particles.push(new Particle()); }
+        function animate(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            particles.forEach(p=>{p.update();p.draw();});
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+    </script>
 </body>
 </html>
